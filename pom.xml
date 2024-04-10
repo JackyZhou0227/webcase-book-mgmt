@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>com.pxxy</groupId>
-    <artifactId>springboot-tutorial</artifactId>
+    <artifactId>webcase-book-mgmt</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>webcase_book_mgmt</name>
     <packaging>jar</packaging>

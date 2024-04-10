@@ -1,4 +1,4 @@
-# webcase_book_mgmt
+# webcase-book-mgmt
 
 #### 介绍
 简单的图书管理系统,后端使用Spring Framework,Spring MVC,Spring Boot,Mybatis框架;<br>
