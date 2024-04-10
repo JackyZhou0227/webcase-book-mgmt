@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 全局设置 -->
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <typeAliases>
+        <package name="com.pxxy.springboot.webcase.entity"/>
+    </typeAliases>
+
+    <typeHandlers>
+        <typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler"
+                                javaType="com.pxxy.springboot.webcase.entity.UserStatus"/>
+    </typeHandlers>
+
+    <mappers>
+        <mapper resource="mybatis/mappers/BookMapper.xml"/>
+        <mapper resource="mybatis/mappers/UserMapper.xml"/>
+        <mapper resource="mybatis/mappers/LogMapper.xml"/>
+    </mappers>
+</configuration>

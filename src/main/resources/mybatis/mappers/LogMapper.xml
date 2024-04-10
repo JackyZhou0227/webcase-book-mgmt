@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pxxy.springboot.webcase.mapper.LogMapper">
+
+    <resultMap id="logResultMap" type="com.pxxy.springboot.webcase.entity.LogMessage">
+        <id column="id" property="id"/>
+        <result column="user_name" property="userName"/>
+        <result column="url" property="url"/>
+        <result column="request_time" property="requestTime"/>
+        <result column="request_duration" property="requestDuration"/>
+
+    </resultMap>
+
+    <insert id="save" parameterType="com.pxxy.springboot.webcase.entity.LogMessage" >
+        INSERT INTO t_log (user_name,url,request_time,request_duration) VALUES (#{userName},#{url},#{requestTime},#{requestDuration})
+    </insert>
+
+    <delete id="delete" parameterType="com.pxxy.springboot.webcase.entity.LogMessage" >
+        DELETE FROM t_log WHERE id = #{id}
+    </delete>
+
+    <select id="findAll" resultType="logMessage">
+        SELECT * FROM t_log
+    </select>
+
+    <select id="findById" resultMap="logResultMap">
+        SELECT * FROM t_log WHERE id = #{id}
+    </select>
+    <select id="findByKeyword" parameterType="com.pxxy.springboot.webcase.entity.LogMessage" resultMap="logResultMap">
+        SELECT * FROM t_log WHERE user_name LIKE CONCAT('%',#{keyword},'%') OR url LIKE CONCAT('%',#{keyword},'%')
+    </select>
+
+    <delete id="deleteSelected" parameterType="java.util.List" >
+        DELETE FROM t_log WHERE id IN (
+        <foreach collection="list" item="id" index="index" separator=",">
+            #{id}
+        </foreach>
+        )
+    </delete>
+
+</mapper>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pxxy.springboot.webcase.mapper.UserMapper">
+
+    <resultMap id="userResultMap" type="com.pxxy.springboot.webcase.entity.User">
+        <id column="id" property="id"/>
+        <result column="user_name" property="userName"/>
+        <result column="password" property="password"/>
+        <result column="mobile_phone" property="mobilePhone"/>
+        <result column="status" property="status"/>
+        <result column="real_name" property="realName"/>
+        <result column="create_date" property="createDate"/>
+        <result column="update_date" property="updateDate"/>
+        <result column="last_login_date" property="lastLoginDate"/>
+        <result column="avatar_url" property="avatarUrl"/>
+    </resultMap>
+
+    <insert id="save" parameterType="com.pxxy.springboot.webcase.entity.User" >
+        INSERT INTO t_user (user_name, password, mobile_phone, status, real_name, create_date, update_date, last_login_date, avatar_url)
+        VALUES(#{userName}, #{password}, #{mobilePhone}, #{status}, #{realName}, now(), now(), now(), #{avatarUrl})
+    </insert>
+
+    <update id="update" parameterType="com.pxxy.springboot.webcase.entity.User" >
+        UPDATE t_user
+        SET user_name = #{userName}, password = #{password}, mobile_phone = #{mobilePhone}, status = #{status}, real_name = #{realName}, update_date = now(), last_login_date = now(), avatar_url = #{avatarUrl}
+        WHERE id = #{id}
+    </update>
+
+    <update id="delete">
+        DELETE FROM t_user
+        WHERE id = #{id}
+    </update>
+
+    <select id="findAll" resultMap="userResultMap">
+        SELECT * FROM t_user
+    </select>
+
+    <select id="findById" parameterType="com.pxxy.springboot.webcase.entity.User" resultMap="userResultMap">
+        SELECT * FROM t_user WHERE id = #{id}
+    </select>
+
+    <select id="findByUserName" parameterType="com.pxxy.springboot.webcase.entity.User" resultMap="userResultMap">
+        SELECT * FROM t_user WHERE user_name = #{userName}
+    </select>
+
+</mapper>

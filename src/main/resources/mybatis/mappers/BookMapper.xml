@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pxxy.springboot.webcase.mapper.BookMapper">
+
+    <resultMap id="bookResultMap" type="com.pxxy.springboot.webcase.entity.Book">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="author" property="author"/>
+        <result column="price" property="price"/>
+        <result column="publisher" property="publisher"/>
+        <result column="publish_date" property="publishDate"/>
+        <result column="cover_url" property="coverUrl"/>
+    </resultMap>
+
+    <insert id="save" parameterType="com.pxxy.springboot.webcase.entity.Book" >
+            INSERT INTO t_book (name, author, price, publisher, publish_date, cover_url)
+            VALUES(#{name}, #{author}, #{price}, #{publisher}, #{publishDate}, #{coverUrl})
+    </insert>
+    <update id="update" parameterType="com.pxxy.springboot.webcase.entity.Book" >
+            UPDATE t_book
+            SET name = #{name}, author = #{author}, price = #{price}, publisher = #{publisher}, publish_date = #{publishDate}, cover_url = #{coverUrl}
+            WHERE id = #{id}
+    </update>
+    <delete id="delete" parameterType="com.pxxy.springboot.webcase.entity.Book" >
+            DELETE FROM t_book WHERE id = #{id}
+    </delete>
+    <select id="findAll" resultMap="bookResultMap">
+        SELECT * FROM t_book
+    </select>
+    <select id="findById" parameterType="com.pxxy.springboot.webcase.entity.Book" resultMap="bookResultMap">
+        SELECT * FROM t_book WHERE id = #{id}
+    </select>
+    <select id="findByKeywords" parameterType="com.pxxy.springboot.webcase.entity.Book" resultMap="bookResultMap">
+        SELECT * FROM t_book WHERE name LIKE CONCAT('%',#{keyword},'%') OR author LIKE CONCAT('%',#{keyword},'%') OR publisher LIKE CONCAT('%',#{keyword},'%')
+    </select>
+
+    <delete id="deleteSelected" parameterType="java.util.List" >
+        DELETE FROM t_book WHERE id IN (
+        <foreach collection="list" item="id" index="index" separator=",">
+            #{id}
+        </foreach>
+        )
+    </delete>
+
+</mapper>
